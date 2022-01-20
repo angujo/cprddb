@@ -15,3 +15,4 @@ INSERT INTO visit_occurrence
 WITH vodetails AS (SELECT visit_occurrence_id, lag(visit_occurrence_id, 1) over(patition BY person_id ORDER BY visit_start_date) AS prev_id FROM visit_detail ORDER BY person_id, visit_start_date asc)
 UPDATE visit_occurrence v SET preceding_visit_occurrence_id = d.prev_id FROM vodetails d WHERE v.visit_occurrence_id=d.visit_occurrence_id;
 	
+-- populate visit_details' visit_occurrence_id
