@@ -33,7 +33,8 @@ WITH voccur AS (SELECT * FROM visit_occurance),
 		CASE WHEN st.source_concept_id IS NULL OR 0 = st.source_concept_id THEN 'Observation' else st.source_domain_id end, 
 		r.patid, vo.visit_occurrence_id, r.staffid, r.eventdate::timestamp, st.source_concept_id, r.medcode, ss.source_concept_id, 32856,NULL,NULL,NULL,r.eventdate, null
 		FROM test r
-		JOIN voccur vo ON vo.person_id = c.patid AND vo.visit_start_date = r.eventdate
+		JOIN test_int ti ON ti.enttype = r.enttype
+		JOIN voccur vo ON vo.person_id = c.patid AND vo.visit_start_date = ti.eventdate
 		LEFT JOIN ssource ss ON ss.source_code = r.medcode AND ss.source_vocabulary_id = 'Read'
 		LEFT JOIN sstandard st ON st.source_code = r.medcode AND st.source_vocabulary_id = 'JNJ_CPRD_TEST_ENT' AND st.Target_standard_concept = 'S' and st.target_invalid_reason is NULL
 	)
