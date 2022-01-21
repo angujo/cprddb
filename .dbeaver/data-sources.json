@@ -1,0 +1,30 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-17e7c81b9dd-3b8939a4d4c72563": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "sample.sqlite.db",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "D:\\DBProjects\\CPRD\\sample.sqlite.db",
+				"url": "jdbc:sqlite:D:\\DBProjects\\CPRD\\sample.sqlite.db",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
