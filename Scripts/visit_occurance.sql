@@ -16,3 +16,4 @@ WITH vodetails AS (SELECT visit_occurrence_id, lag(visit_occurrence_id, 1) over(
 UPDATE visit_occurrence v SET preceding_visit_occurrence_id = d.prev_id FROM vodetails d WHERE v.visit_occurrence_id=d.visit_occurrence_id;
 	
 -- populate visit_details' visit_occurrence_id
+UPDATE visit_detail v SET visit_occurrence_id = o.visit_occurrence_id FROM visit_occurrence o WHERE v.person_id = o.person_id AND v.visit_detail_start_date = o.visit_start_date;
