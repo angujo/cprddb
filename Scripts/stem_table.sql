@@ -211,6 +211,7 @@ WITH voccur AS (SELECT person_id, visit_start_date, visit_occurrence_id FROM vis
 			FROM stem_table WHERE domain_id IN 
 			('Observation')
 	)
+
 INSERT INTO target.specimen 
 	(disease_status_source_value, unit_source_value, disease_status_concept_id, specimen_source_value, anatomic_site_concept_id, unit_concept_id, quantity, 
 	specimen_datetime, specimen_date, specimen_type_concept_id, specimen_concept_id, specimen_source_id, person_id, specimen_id, 
