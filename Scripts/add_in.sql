@@ -28,6 +28,7 @@ WITH
 		JOIN adds a on p.prodcode::text IN (a.data1, a.data2, a.data3, a.data4, a.data5, a.data6, a.data7) 
 		JOIN entities e on a.enttype = e.enttype AND 'Product Dictionary' IN (e.data1_lkup, e.data2_lkup, e.data3_lkup, e.data4_lkup, e.data5_lkup, e.data6_lkup, e.data7_lkup)
 	)
+	
 	select a.patid,
 	       c.eventdate, --Join on line 32 to the Clinical table to get this information
 	       c.constype,
