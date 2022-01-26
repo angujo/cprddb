@@ -70,28 +70,28 @@ WITH voccur AS (SELECT person_id, visit_start_date, visit_occurrence_id FROM vis
 		SELECT 
 		CASE WHEN cn.concept_id IS NULL OR 0 = cn.concept_id THEN 'Observation' else cn.domain_id END AS domain_id, 
 		ad.patid person_id,
-	    vo.visit_occurrence_id,
-	    ad.staffid provider_id,
-	    ad.eventdate::timestamp start_datetime,
-	    st.source_concept_id AS concept_id, 
-	    ad.source_value,
-	    0 source_concept_id,
-	    32851 AS type_concept_id, 
-	    ad.eventdate start_date,
-	    NULL operator_concept_id,
-	    cu.concept_id unit_concept_id,
-	    ad.unit_source_value,
-	    ad.eventdate end_date,
-	    NULL sig, NULL range_high, NULL range_low,
-	    ad.value_as_number,
-	    CASE 
-	    	when ad."data" = 'Read code for condition' THEN (SELECT source_concept_id FROM sstandard WHERE source_code = ad.value_as_string AND source_vocabulary_id = 'Read' LIMIT 1)
-	    	when ad."data" = 'Drug code' THEN (SELECT source_concept_id FROM sstandard WHERE source_code = ad.value_as_string AND source_vocabulary_id = 'Gemscript' LIMIT 1)
-	    	when ad.qualifier_source_value IS not null THEN (SELECT source_concept_id FROM sstandard WHERE source_code = ad.qualifier_source_value AND domain_id = 'Meas Value' AND source_vocabulary_id = 'LOINC' LIMIT 1)
-	    END value_as_concept_id,
-	    ad.qualifier_source_value value_source_value,
-	    ad.value_as_string
-	    FROM add_in ad
+		vo.visit_occurrence_id,
+		ad.staffid provider_id,
+		ad.eventdate::timestamp start_datetime,
+		st.source_concept_id AS concept_id, 
+		ad.source_value,
+		0 source_concept_id,
+		32851 AS type_concept_id, 
+		ad.eventdate start_date,
+		NULL operator_concept_id,
+		cu.concept_id unit_concept_id,
+		ad.unit_source_value,
+		ad.eventdate end_date,
+		NULL sig, NULL range_high, NULL range_low,
+		ad.value_as_number,
+		CASE 
+			when ad."data" = 'Read code for condition' THEN (SELECT source_concept_id FROM sstandard WHERE source_code = ad.value_as_string AND source_vocabulary_id = 'Read' LIMIT 1)
+			when ad."data" = 'Drug code' THEN (SELECT source_concept_id FROM sstandard WHERE source_code = ad.value_as_string AND source_vocabulary_id = 'Gemscript' LIMIT 1)
+			when ad.qualifier_source_value IS not null THEN (SELECT source_concept_id FROM sstandard WHERE source_code = ad.qualifier_source_value AND domain_id = 'Meas Value' AND source_vocabulary_id = 'LOINC' LIMIT 1)
+		END value_as_concept_id,
+		ad.qualifier_source_value value_source_value,
+		ad.value_as_string
+		FROM add_in ad
 		JOIN voccur vo ON vo.person_id = ad.patid AND vo.visit_start_date = ad.eventdate
 		LEFT JOIN concept cn ON cn.concept_code = ad.source_value
 		LEFT JOIN sstandard st ON st.source_code = ad.source_value AND st.source_vocabulary_id = 'JNJ_CPRD_ADD_ENTTYPE'
